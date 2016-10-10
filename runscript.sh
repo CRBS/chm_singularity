@@ -22,6 +22,7 @@ if [ $# -eq 0 ] ; then
   echo "  To see more help run one of the following commands"
   echo "    $0 train"
   echo "    $0 test"
+  echo "    $0 verify"
   echo ""
   echo "  For information on how this image was created please visit:"
   echo "  https://github.com/slash-segmentation/chm_singularity"
@@ -41,10 +42,38 @@ else
     exec /$chm/CHM_test.sh "$@" $matlab
   else
     if [ "$mode" == "verify" ] ; then
-       echo "Run test"
+       if [ $# -ne 1 ] ; then
+          echo "$0 verify <tmp directory>"
+          echo ""
+          echo "Runs CHM train and test on some internal test data"
+          echo "to verify image is configured correctly."
+          echo ""
+          echo "To run please pass path to tmp directory with right access"
+          echo "code will exit 0 upon success otherwise failure"
+          exit 2
+       fi
+       declare my_tmp=$1
+       rm -f "$my_tmp/testimage.png"
+       /$chm/CHM_train.sh /chm_singularity_test_data/images /chm_singularity_test_data/labels -S 2 -L 1 $matlab -m $my_tmp/model
+       if [ $? != 0 ] ; then
+          echo "Error chm train failed to run /$chm/CHM_train.sh /chm_singularity_test_data/images /chm_singularity_test_data/labels -S 2 -L 1 $matlab -m $my_tmp/model"
+          exit 3
+       fi
+       echo "Training completed. Running CHM test..."
+       /$chm/CHM_test.sh /chm_singularity_test_data $my_tmp -m $my_tmp/model -b 100x95 -t 1,1 -o 0x0 -h $matlab
+       if [ $? != 0 ] ; then
+          echo "Error chm test failed to run /$chm/CHM_test.sh $my_tmp /chm_singularity_test_data -m $my_tmp/model -b 100x95 -t 1,1 -o 0x0 -h $matlab"
+          exit 4
+       fi
+       echo "Verifying probability map exists with size greater then 0"
+       if [ -s "$my_tmp/testimage.png" ] ; then
+          exit 0
+       fi
+       echo "No resulting probability map found"
+       exit 5
     else
        echo "Invalid mode: $mode. Run $0 with no arguments for help"
-       exit 2
+       exit 3
     fi
   fi
 fi
