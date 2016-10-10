@@ -6,8 +6,9 @@ export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v81/runtime/gln
 
 mode=$1
 shift
+matlab=" -M /usr/local/MATLAB/MATLAB_Compiler_Runtime/v81"
 if [ "$mode" == "train" ] ; then
-  exec /chm-compiled-r2013a-2.1.367/CHM_train.sh "$@"
+  exec /chm-compiled-r2013a-2.1.367/CHM_train.sh "$@" $matlab
 else
-  exec /chm-compiled-r2013a-2.1.367/CHM_test.sh "$@"
+  exec /chm-compiled-r2013a-2.1.367/CHM_test.sh "$@" $matlab
 fi

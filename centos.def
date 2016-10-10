@@ -31,5 +31,8 @@ RunCmd "cd /;unzip -d mcr MCR_R2013a_glnxa64_installer.zip"
 InstallFile mcr_installopts.txt /mcr
 RunCmd "cd /mcr;ls;./install -inputFile mcr_installopts.txt"
 
+RunCmd "rm -f /MCR_R2013a_glnxa64_installer.zip"
+RunCmd "rm -f /chm-compiled-r2013a-2.1.367.tar.gz"
+
 Cleanup
 
