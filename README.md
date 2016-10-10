@@ -1,6 +1,8 @@
 [singularity]: http://singularity.lbl.gov/
 [chm]: https://www.sci.utah.edu/software/chm.html
-
+[matlab]: https://www.mathworks.com/products/compiler/mcr/
+[matlab_license]: https://www.mathworks.com/help/javabuilder/MWArrayAPI/license_agreement.txt
+[sudo]: https://www.sudo.ws/
 # chm_singularity
 
 Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM) version 2.1.367][chm].
@@ -17,7 +19,7 @@ Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM
 * Make
 * Linux
 * Bash
-* sudo superuser access
+* [sudo][sudo] superuser access (required by [Singularity][singularity] to build images)
 
 # To build
 
@@ -114,3 +116,15 @@ cd build/
 chm-0.1.0.img train ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
 ```
 
+# LICENSE
+
+For the code to generate to generate this singularity image see the license in this file: [LICENSE.txt](LICENSE.txt)
+
+For [CHM] license please visit: https://www.sci.utah.edu/software/chm.html
+
+The scripts in this source tree download and include the [Matlab Compiled Runtime 2013a][matlab].  The license can be found [here][matlab_license] or by running the following command on the built image: 
+
+```Bash
+cd build/
+./chm-0.1.0.img license
+```
