@@ -22,6 +22,15 @@ RunCmd "mkdir /oasis"
 RunCmd "mkdir /projects"
 RunCmd "mkdir /data"
 
+# Create directories for test data
+RunCmd "mkdir -p /chm_singularity_test_data/images"
+RunCmd "mkdir -p /chm_singularity_test_data/labels"
+InstallFile testdata/images/1.png /chm_singularity_test_data/images
+InstallFile testdata/images/2.png /chm_singularity_test_data/images
+InstallFile testdata/labels/1.png /chm_singularity_test_data/labels
+InstallFile testdata/labels/2.png /chm_singularity_test_data/labels
+InstallFile testdata/testimage.png /chm_singularity_test_data
+
 # Copy over CHM
 RunCmd "cd /;wget https://www.sci.utah.edu/releases/chm_v2.1.367/chm-compiled-r2013a-2.1.367.tar.gz"
 RunCmd "cd /;tar -zxf chm-compiled-r2013a-2.1.367.tar.gz"
