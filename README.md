@@ -113,7 +113,7 @@ The example below uses the trained model from the previous step to run [CHM][chm
 
 ```Bash
 cd build/
-chm-0.1.0.img train ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
+chm-0.1.0.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
 ```
 
 # LICENSE
