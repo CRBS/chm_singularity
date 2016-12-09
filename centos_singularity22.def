@@ -1,0 +1,39 @@
+# Copyright (c) 2015-2016, Gregory M. Kurtzer. All rights reserved.
+# 
+# "Singularity" Copyright (c) 2016, The Regents of the University of California,
+# through Lawrence Berkeley National Laboratory (subject to receipt of any
+# required approvals from the U.S. Dept. of Energy).  All rights reserved.
+
+
+BootStrap: yum
+OSVersion: 7
+MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
+Include: yum
+
+# If you want the updates (available at the bootstrap date) to be installed
+# inside the container during the bootstrap instead of the General Availability
+# point release (7.x) then uncomment the following line
+#UpdateURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/updates/$basearch/
+
+%setup
+   mkdir "$SINGULARITY_ROOTFS/mcr"
+   cp mcr_installopts.txt "$SINGULARITY_ROOTFS/mcr"
+   
+
+%runscript
+    echo "This is what happens when you run the container..."
+
+
+%post
+    echo "Hello from inside the container"
+    yum -y install vim-minimal make python python-devel git wget tar cmake epel-release tcsh unzip java-1.8.0-openjdk libXt libXt-devel java-1.8.0-openjdk-devel java-1.8.0-openjdk-headless libXmu libXmu-devel
+    mkdir -p /oasis /projects /data /state/partition1 /scratch /scratch1 /scratch2
+    cd /
+    wget https://www.sci.utah.edu/releases/chm_v2.1.367/chm-compiled-r2013a-2.1.367.tar.gz
+    tar -zxf chm-compiled-r2013a-2.1.367.tar.gz
+    # wget https://www.mathworks.com/supportfiles/MCR_Runtime/R2013a/MCR_R2013a_glnxa64_installer.zip
+    # unzip -d mcr MCR_R2013a_glnxa64_installer.zip
+
+    
+
+
