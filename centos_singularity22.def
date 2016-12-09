@@ -18,11 +18,9 @@ Include: yum
 %setup
    mkdir "$SINGULARITY_ROOTFS/mcr"
    cp mcr_installopts.txt "$SINGULARITY_ROOTFS/mcr"
-   
-
-%runscript
-    echo "This is what happens when you run the container..."
-
+   cp runscript.sh "$SINGULARITY_ROOTFS/mcr"
+   chmod a+rx "$SINGULARITY_ROOTFS/singularity"  
+ 
 
 %post
     echo "Hello from inside the container"
@@ -33,7 +31,4 @@ Include: yum
     tar -zxf chm-compiled-r2013a-2.1.367.tar.gz
     # wget https://www.mathworks.com/supportfiles/MCR_Runtime/R2013a/MCR_R2013a_glnxa64_installer.zip
     # unzip -d mcr MCR_R2013a_glnxa64_installer.zip
-
-    
-
 
