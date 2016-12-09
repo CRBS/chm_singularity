@@ -7,6 +7,8 @@ export PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v81/bin/:$PATH
 
 declare chm="chm-compiled-r2013a-2.1.367"
 
+declare version="@@VERSION@@"
+
 if [ $# -eq 0 ] ; then
   echo "$0 <train|test|verify|licenses> <images> <labels> (options)"
   echo ""
@@ -24,12 +26,14 @@ if [ $# -eq 0 ] ; then
   echo "    train -- Runs CHM Train"
   echo "    test -- Runs CHM Test"
   echo "    verify -- Runs a quick test to verify CHM Train & Test work"
+  echo "    version -- Outputs version of CHM singularity image"
   echo ""
   echo "  To see more help run one of the following commands"
   echo "    $0 train"
   echo "    $0 test"
-  echo "    $0 verify"
   echo "    $0 license"
+  echo "    $0 verify"
+  echo "    $0 version"
   echo ""
   echo "  For information on how this image was created please visit:"
   echo "  https://github.com/slash-segmentation/chm_singularity"
@@ -49,6 +53,11 @@ if [ "$mode" == "license" ] ; then
   echo "Visit https://github.com/slash-segmentation/chm_singularity"
   echo "for licenses for CHM and the code to generate this image"
   echo ""
+  exit 0
+fi
+
+if [ "$mode" == "version" ] ; then
+  echo "$version"
   exit 0
 fi
 

@@ -1,7 +1,10 @@
 
 RELEASE=7
-
+VERSION=$1
+echo ""
 echo "Setting RELEASE=$RELEASE"
+echo "Version: $VERSION"
+echo ""
 
 DistType "redhat"
 MirrorURL "http://mirror.centos.org/centos-${RELEASE}/${RELEASE}/os/\$basearch/"
@@ -16,11 +19,17 @@ InstallPkgs libXmu-devel
 
 InstallFile runscript.sh /singularity
 
+# Set version in runscript.sh
+RunCmd "sed -i \"s/@@VERSION@@/$VERSION/g\" /singularity"
 
 # Make directories used on Gordon, Comet, & Rocce
 RunCmd "mkdir /oasis"
 RunCmd "mkdir /projects"
 RunCmd "mkdir /data"
+RunCmd "mkdir -p /state/partition1"
+RunCmd "mkdir /scratch"
+RunCmd "mkdir /scratch1"
+RunCmd "mkdir /scratch2"
 
 # Create directories for test data
 RunCmd "mkdir -p /chm_singularity_test_data/images"
