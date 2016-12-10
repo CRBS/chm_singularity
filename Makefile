@@ -17,3 +17,12 @@ singularity: clean
 	sudo singularity bootstrap $$imgfile centos.def $$vers; \
 	echo 'Singularity image created $imgfile'
 	ls -l build
+
+singularity22: clean
+        @echo 'Creating Singularity v22 image'
+        mkdir -p build
+        imgfile='build/chm_s22.img' ; \
+        sudo singularity create -s 4096 $$imgfile ; \
+        sudo singularity bootstrap $$imgfile centos_singularity22.def; \
+        echo 'Singularity image created $imgfile'
+        ls -l build
