@@ -18,7 +18,7 @@ if [ $# -eq 0 ] ; then
   echo "      Using this image implies consent of its license found by"
   echo "      running this command again with license as first argument."
   echo "      Other licenses can be found by visiting: "
-  echo "      https://github.com/slash-segmentation/chm_singularity"
+  echo "      https://github.com/CRBS/chm_singularity"
   echo ""
   echo "  The mode is determined by the first argument <train|test|verify>"
   echo "  If first argument is:"
@@ -36,7 +36,7 @@ if [ $# -eq 0 ] ; then
   echo "    $0 version"
   echo ""
   echo "  For information on how this image was created please visit:"
-  echo "  https://github.com/slash-segmentation/chm_singularity"
+  echo "  https://github.com/CRBS/chm_singularity"
   echo ""
   exit 1
 fi
@@ -50,7 +50,7 @@ matlab=" -M /usr/local/MATLAB/MATLAB_Compiler_Runtime/v81"
 if [ "$mode" == "license" ] ; then
   echo "MATLAB LICENSE:"
   cat /usr/local/MATLAB/MATLAB_Compiler_Runtime/v81/license.txt
-  echo "Visit https://github.com/slash-segmentation/chm_singularity"
+  echo "Visit https://github.com/CRBS/chm_singularity"
   echo "for licenses for CHM and the code to generate this image"
   echo ""
   exit 0
