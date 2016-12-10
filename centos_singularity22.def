@@ -4,7 +4,6 @@
 # through Lawrence Berkeley National Laboratory (subject to receipt of any
 # required approvals from the U.S. Dept. of Energy).  All rights reserved.
 
-VERSION=$1
 
 BootStrap: yum
 OSVersion: 7
@@ -20,8 +19,13 @@ Include: yum
    mkdir "$SINGULARITY_ROOTFS/mcr"
    cp mcr_installopts.txt "$SINGULARITY_ROOTFS/mcr"
    cp runscript.sh "$SINGULARITY_ROOTFS/singularity"
-   chmod a+rx "$SINGULARITY_ROOTFS/singularity"  
+   chmod a+rx "$SINGULARITY_ROOTFS/singularity"
+   VERSION=vers=`cat VERSION | sed "s/\n//g"`
    sed -i "s/@@VERSION@@/$VERSION/g" "$SINGULARITY_ROOTFS/singularity"
+   if [ -e MCR_R2013a_glnxa64_installer.zip ] ; then
+     echo "Matlab compiled runtime found in current directory. Copying to image"
+     cp MCR_R2013a_glnxa64_installer.zip "$SINGULARITY_ROOTFS"
+   fi
 
 %post
     echo "Hello from inside the container"
@@ -30,6 +34,9 @@ Include: yum
     cd /
     wget https://www.sci.utah.edu/releases/chm_v2.1.367/chm-compiled-r2013a-2.1.367.tar.gz
     tar -zxf chm-compiled-r2013a-2.1.367.tar.gz
-    # wget https://www.mathworks.com/supportfiles/MCR_Runtime/R2013a/MCR_R2013a_glnxa64_installer.zip
-    # unzip -d mcr MCR_R2013a_glnxa64_installer.zip
+    if [ ! -e /MCR_R2013a_glnxa64_installer.zip ] ; then
+      echo "Downloading Matlab Compiled Runtime"
+      wget https://www.mathworks.com/supportfiles/MCR_Runtime/R2013a/MCR_R2013a_glnxa64_installer.zip
+    fi
+    unzip -d mcr MCR_R2013a_glnxa64_installer.zip
 
