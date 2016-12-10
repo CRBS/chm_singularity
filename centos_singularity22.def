@@ -20,7 +20,7 @@ Include: yum
    cp mcr_installopts.txt "$SINGULARITY_ROOTFS/mcr"
    cp runscript.sh "$SINGULARITY_ROOTFS/singularity"
    chmod a+rx "$SINGULARITY_ROOTFS/singularity"  
-   sed -i "s/@@VERSION@@/$VERSION/g" /singularity 
+   sed -i "s/@@VERSION@@/$VERSION/g" "$SINGULARITY_ROOTFS/singularity"
 
 %post
     echo "Hello from inside the container"
