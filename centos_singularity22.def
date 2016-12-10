@@ -45,4 +45,9 @@ Include: yum
       wget https://www.mathworks.com/supportfiles/MCR_Runtime/R2013a/MCR_R2013a_glnxa64_installer.zip
     fi
     unzip -d mcr MCR_R2013a_glnxa64_installer.zip
+    cd /mcr
+    ./install -inputFile mcr_installopts.txt
+
+%test
+    /singularity verify /tmp
 
