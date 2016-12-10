@@ -17,10 +17,16 @@ Include: yum
 
 %setup
    mkdir "$SINGULARITY_ROOTFS/mcr"
+   mkdir -p "$SINGULARITY_ROOTFS/chm_singularity_test_data/images"
+   mkdir -p "$SINGULARITY_ROOTFS/chm_singularity_test_data/labels"
+   cp testdata/images/*.png "$SINGULARITY_ROOTFS/chm_singularity_test_data/images"
+   cp testdata/labels/*.png "$SINGULARITY_ROOTFS/chm_singularity_test_data/labels"
+   cp testdata/testimage.png "$SINGULARITY_ROOTFS/chm_singularity_test_data"
+   
    cp mcr_installopts.txt "$SINGULARITY_ROOTFS/mcr"
    cp runscript.sh "$SINGULARITY_ROOTFS/singularity"
    chmod a+rx "$SINGULARITY_ROOTFS/singularity"
-   VERSION=vers=`cat VERSION | sed "s/\n//g"`
+   VERSION=`cat VERSION | sed "s/\n//g"`
    sed -i "s/@@VERSION@@/$VERSION/g" "$SINGULARITY_ROOTFS/singularity"
    if [ -e MCR_R2013a_glnxa64_installer.zip ] ; then
      echo "Matlab compiled runtime found in current directory. Copying to image"
