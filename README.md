@@ -112,7 +112,7 @@ The example below uses test data to run chm train putting the results in the **m
 
 ```Bash
 cd build/
-chm-0.1.0.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
+chm.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
 ```
 
 ### To run [CHM][chm] aka test
@@ -121,7 +121,7 @@ The example below uses the trained model from the previous step to run [CHM][chm
 
 ```Bash
 cd build/
-chm-0.1.0.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
+chm.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
 ```
 
 # LICENSE
@@ -134,5 +134,5 @@ The scripts in this source tree download and include the [Matlab Compiled Runtim
 
 ```Bash
 cd build/
-./chm-0.1.0.img license
+./chm.img license
 ```
