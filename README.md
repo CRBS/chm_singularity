@@ -10,12 +10,12 @@ Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM
 
 # Run requirements
 
-* [Singularity 2.0,2.1][singularity]
+* [Singularity 2.0,2.1,2.2][singularity]
 * Linux
 
 # Build requirements 
 
-* [Singularity 2.0,2.1][singularity]
+* [Singularity 2.0,2.1,2.2][singularity]
 * Make
 * Linux
 * Bash
@@ -23,12 +23,18 @@ Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM
 
 # To build
 
-Run the following command to create the singularity image which will
-be put under the **build/** directory
+Run the following command to create the [Singularity][singularity] image for versions 2.0/2.1. The image will which will be put under the **build/** directory
 
 ```Bash
 make singularity
 ```
+
+Run the following command to create the [Singularity][singularity] image for version 2.2. The image will which will be put under the **build/** directory
+
+```Bash
+make singularity22
+```
+
 
 # To test
 
@@ -36,8 +42,10 @@ The image is built with a self test mode. To run the self test issue the followi
 
 ```Bash
 cd build/
-./chm-0.1.0.im verify `pwd`
+./chm.img verify `pwd`
+# replace ./chm.img with ./chm_s22.img if building for singularity 2.2
 ```
+
 
 ### Expected output from above command
 
