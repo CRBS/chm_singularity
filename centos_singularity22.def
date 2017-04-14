@@ -36,7 +36,7 @@ Include: yum
 %post
     echo "Hello from inside the container"
     yum -y install vim-minimal make python python-devel git wget tar cmake epel-release tcsh unzip java-1.8.0-openjdk libXt libXt-devel java-1.8.0-openjdk-devel java-1.8.0-openjdk-headless libXmu libXmu-devel
-    mkdir -p /oasis /projects /data /state/partition1 /scratch /scratch1 /scratch2
+    mkdir -p /oasis /projects /data /state/partition1 /scratch /scratch1 /scratch2 /ccdbprod
     cd /
     wget https://www.sci.utah.edu/releases/chm_v2.1.367/chm-compiled-r2013a-2.1.367.tar.gz
     tar -zxf chm-compiled-r2013a-2.1.367.tar.gz
