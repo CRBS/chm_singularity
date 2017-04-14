@@ -30,7 +30,7 @@ RunCmd "mkdir -p /state/partition1"
 RunCmd "mkdir /scratch"
 RunCmd "mkdir /scratch1"
 RunCmd "mkdir /scratch2"
-
+RunCmd "mkdir /ccdbprod"
 # Create directories for test data
 RunCmd "mkdir -p /chm_singularity_test_data/images"
 RunCmd "mkdir -p /chm_singularity_test_data/labels"
