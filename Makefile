@@ -3,6 +3,7 @@
 help:
 	@echo "clean - remove all build and test artifacts"
 	@echo "singularity - Creates singularity image"
+	@echo "singularity22 - Creates singularity 2.2 image"
 
 clean:
 	rm -fr build/
