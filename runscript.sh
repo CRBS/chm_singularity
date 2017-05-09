@@ -27,8 +27,12 @@ if [ $# -eq 0 ] ; then
   echo "    test -- Runs CHM Test"
   echo "    verify -- Runs a quick test to verify CHM Train & Test work"
   echo "    version -- Outputs version of CHM singularity image"
+  echo "    <file> -- If first argument is a file then probability map"
+  echo "              viewer external script mode is used which assumes 3 args"
+  echo "              <input tile> <output tile> <model directory>"
   echo ""
   echo "  To see more help run one of the following commands"
+  echo "    $0 <file>"
   echo "    $0 train"
   echo "    $0 test"
   echo "    $0 license"
@@ -63,13 +67,11 @@ fi
 
 if [ "$mode" == "train" ] ; then
   exec /$chm/CHM_train.sh "$@" $matlab
-  exit $?
 fi
 
 
 if [ "$mode" == "test" ] ; then
   exec /$chm/CHM_test.sh "$@" $matlab
-  exit $? 
 fi
  
 if [ "$mode" == "verify" ] ; then
@@ -104,6 +106,41 @@ if [ "$mode" == "verify" ] ; then
   fi
   echo "Test failed... No resulting probability map found"
   exit 5
+fi
+
+# Probability map viewer mode check
+if [ -e "$mode" ] ; then
+  if [ $# -ne 2 ] ; then
+    echo ""
+    echo "$0 <input tile> <output tile> <model directory>"
+    echo ""
+    echo "CHM test in Probability Map Viewer mode."
+    
+    echo "In this mode CHM test is run on <input tile> image file using the model"
+    echo "specified by <model directory>. The overlap is "
+    echo "set to 0x0 and block/tile size is set to size of <input tile> image."
+    echo "After CHM is run, the Image Magick convert command is used to threshold the"
+    echo "image using the flag -threshold 30% to zero out intensities below this" 
+    echo "threshold. The resulting image is stored in <output tile> image file as a png"
+    echo ""
+    exit 7
+  fi
+  if [ $# -eq 2 ] ; then
+    input="$mode"
+    output="$1"
+    outputdir=`dirname $output`
+    model="$2"
+    tilesize=`identify -format "%[fx:w]x%[fx:h]" $input`
+    /$chm/CHM_test.sh "$input" "$outputdir" -h -m "$model" -b $tilesize -o 0x0 -t 1,1 $matlab
+    exitcode=$?
+    outimage=`find $output -name "*.png" -type f`
+    outimagetmp="${outimage}.tmp.png"
+    echo "Running convert: $outimage -threshold 30% $outimagetmp"
+    convert "$outimage" -threshold 30% "$outimagetmp"
+    echo "Running mv $outimagetmp $outimage"
+    mv "$outimagetmp" "$outimage"
+    exit $?
+  fi
 fi
 
 echo "Invalid mode: $mode. Run $0 with no arguments for help"
