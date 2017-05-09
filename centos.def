@@ -15,7 +15,7 @@ Bootstrap
 InstallPkgs yum vim-minimal make python python-devel git wget tar
 InstallPkgs cmake epel-release tcsh unzip java-1.8.0-openjdk libXt libXt-devel
 InstallPkgs java-1.8.0-openjdk-devel java-1.8.0-openjdk-headless libXmu
-InstallPkgs libXmu-devel
+InstallPkgs libXmu-devel ImageMagick
 
 InstallFile runscript.sh /singularity
 
