@@ -40,6 +40,7 @@ Include: yum
     cd /
     wget https://www.sci.utah.edu/releases/chm_v2.1.367/chm-compiled-r2013a-2.1.367.tar.gz
     tar -zxf chm-compiled-r2013a-2.1.367.tar.gz
+    rm /chm-compiled-r2013a-2.1.367.tar.gz
     if [ ! -e /MCR_R2013a_glnxa64_installer.zip ] ; then
       echo "Downloading Matlab Compiled Runtime"
       wget https://www.mathworks.com/supportfiles/MCR_Runtime/R2013a/MCR_R2013a_glnxa64_installer.zip
@@ -47,7 +48,7 @@ Include: yum
     unzip -d mcr MCR_R2013a_glnxa64_installer.zip
     cd /mcr
     ./install -inputFile mcr_installopts.txt
-
+    rm /MCR_R2013a_glnxa64_installer.zip
 %test
     /singularity verify /tmp
 
