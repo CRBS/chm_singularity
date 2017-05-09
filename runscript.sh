@@ -109,7 +109,7 @@ if [ "$mode" == "verify" ] ; then
 fi
 
 # Probability map viewer mode check
-if [ -e "$mode" ] ; then
+if [ -f "$mode" ] ; then
   if [ $# -ne 2 ] ; then
     echo ""
     echo "$0 <input tile> <output tile> <model directory>"
