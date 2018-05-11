@@ -1,3 +1,4 @@
 MCR_R2013a_glnxa64_installer.zip
 build/
 vagrant/.vagrant/
+vagrant/chm_s22.img
