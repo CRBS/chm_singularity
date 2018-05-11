@@ -1,5 +1,6 @@
 [singularity]: http://singularity.lbl.gov/
 [chm]: https://www.sci.utah.edu/software/chm.html
+[git]: https://git-scm.com
 [matlab]: https://www.mathworks.com/products/compiler/mcr/
 [matlab_license]: https://www.mathworks.com/help/javabuilder/MWArrayAPI/license_agreement.txt
 [sudo]: https://www.sudo.ws/
@@ -17,14 +18,18 @@ Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM
 
 * [Vagrant][vagrant]
 * [VirtualBox][virtualbox]
+* [Git][git] To clone repo, otherwise just download and unzip the repo
 * At least 4+gb ram
 * At least 20gb free disk space
 
 # To Build
 
-After installing [Vagrant][vagrant] and [Virtualbox][virtualbox], do this to get a Virtual Machine with [Singularity][singularity] installed and connect to it via ssh
+After installing [Vagrant][vagrant] and [Virtualbox][virtualbox], run the following commands to get a Virtual Machine with [Singularity][singularity] installed and connect to it via ssh
 
 ```Bash
+# clone repo or download repo
+git clone https://github.com/CRBS/chm_singularity.git
+cd chm_singularity
 cd vagrant
 vagrant up
 vagrant ssh
