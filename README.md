@@ -3,47 +3,54 @@
 [matlab]: https://www.mathworks.com/products/compiler/mcr/
 [matlab_license]: https://www.mathworks.com/help/javabuilder/MWArrayAPI/license_agreement.txt
 [sudo]: https://www.sudo.ws/
+[virtualbox]: https://www.virtualbox.org/
+[vagrant]: https://www.vagrantup.com/
 # chm_singularity
 
-Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM) version 2.1.367][chm].
-
+Generates [Singularity][singularity] image for [Cascaded Hierarchical Model (CHM) version 2.1.367][chm]. To make image creation easier a [Vagrant][vagrant] configuration is provided that spins up a [Virtualbox][virtualbox] virtual machine with Singularity installed allowing the steps to be done on any machine with [Vagrant][vagrant] and [Virtualbox][virtualbox]
 
 # Run requirements
 
-* [Singularity 2.0,2.1,2.2][singularity]
-* Linux
+* [Singularity 2.2+][singularity]
 
 # Build requirements 
 
-* [Singularity 2.0,2.1,2.2][singularity]
-* Make
-* Linux
-* Bash
-* [sudo][sudo] superuser access (required by [Singularity][singularity] to build images)
+* [Vagrant][vagrant]
+* [VirtualBox][virtualbox]
+* At least 4+gb ram
+* At least 20gb free disk space
 
-# To build
+# To Build
 
-Run the following command to create the [Singularity][singularity] image for versions 2.0/2.1. The image will which will be put under the **build/** directory
+After installing [Vagrant][vagrant] and [Virtualbox][virtualbox], do this to get a Virtual Machine with [Singularity][singularity] installed and connect to it via ssh
 
 ```Bash
-make singularity
+cd vagrant
+vagrant up
+vagrant ssh
 ```
 
-Run the following command to create the [Singularity][singularity] image for version 2.2. The image will which will be put under the **build/** directory
+Now checkout the repo in the Virtual Machine and build. The image will be created under **build/** directory and the commands below copy that to the shared directory **/vagrant** which is the directory where **vagrant up** command was issued.
 
-```Bash
+```
+git clone https://github.com/CRBS/chm_singularity.git
+cd chm_singularity
 make singularity22
-```
+mv build/chm_s22.img /vagrant/.
+exit
 
+# to get rid of virtual machine run this command:
+vagrant destroy 
+```
 
 # To test
 
 The image is built with a self test mode. To run the self test issue the following command after building:
 
 ```Bash
-cd build/
-./chm.img verify `pwd`
-# replace ./chm.img with ./chm_s22.img if building for singularity 2.2
+# Assuming one is still in Virtual Machine
+cd /vagrant
+./chm_s22.img verify `pwd`
 ```
 
 
@@ -112,7 +119,7 @@ The example below uses test data to run chm train putting the results in the **m
 
 ```Bash
 cd build/
-chm.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
+chm_s22.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
 ```
 
 ### To run [CHM][chm] aka test
@@ -121,7 +128,7 @@ The example below uses the trained model from the previous step to run [CHM][chm
 
 ```Bash
 cd build/
-chm.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
+chm_s22.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
 ```
 
 # LICENSE
@@ -134,5 +141,5 @@ The scripts in this source tree download and include the [Matlab Compiled Runtim
 
 ```Bash
 cd build/
-./chm.img license
+./chm_s22.img license
 ```
