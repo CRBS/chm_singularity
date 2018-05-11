@@ -123,8 +123,7 @@ Verifying probability map exists with size greater then 0
 The example below uses test data to run chm train putting the results in the **model** directory of the current working directory.
 
 ```Bash
-cd build/
-chm_s22.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
+./chm_s22.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
 ```
 
 ### To run [CHM][chm] aka test
@@ -132,8 +131,7 @@ chm_s22.img train ../testdata/images ../testdata/labels -S 2 -L 1 -m ./model
 The example below uses the trained model from the previous step to run [CHM][chm] on an image in **testdata** directory. The resulting probability map is stored in **results** directory under current working directory.
 
 ```Bash
-cd build/
-chm_s22.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
+./chm_s22.img test ../testdata ./result -b 100x95 -t 1,1 -o 0x0 -h -m ./model
 ```
 
 # LICENSE
@@ -145,6 +143,5 @@ For [CHM] license please visit: https://www.sci.utah.edu/software/chm.html
 The scripts in this source tree download and include the [Matlab Compiled Runtime 2013a][matlab].  The license can be found [here][matlab_license] or by running the following command on the built image: 
 
 ```Bash
-cd build/
 ./chm_s22.img license
 ```
